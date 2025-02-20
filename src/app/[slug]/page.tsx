@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { db } from "@/lib/prisma";
 
 interface RestaurantPageProps {
@@ -24,6 +26,22 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
           height={82}
         />
         <h2 className="font-semibold">{restaurant.name}</h2>
+      </div>
+      <div className="space-y-22 pt-24 text-center">
+        <h3 className="text-2xl font-semibold">Seja bem vindo</h3>
+        <p className="opacity-55">
+          Escolha como prefere aproveitar sua refeição. Estamos oferencendo
+          praticidade e sabor em cada detalhe.
+        </p>
+      </div>
+      <div className="grid grid-cols-2 pt-14">
+        <Card>
+          <CardContent className="py-08 flex flex-col items-center gap-8">
+            <Button variant="secondary" className="rounded-full">
+              Para comer aqui
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
