@@ -10,23 +10,23 @@ interface RestaurantPageProps {
 const RestaurantPage = async ({ params }: RestaurantPageProps) => {
   const { slug } = await params;
   const restaurant = await db.restaurant.findUnique({ where: { slug } });
-
   if (!restaurant) {
     return notFound();
   }
-
-  return;
-  <div className="flex h-screen flex-col items-center justify-center px-6 pt-24">
-    <div className="flex flex-col items-center gap-2">
-      <Image
-        src={restaurant.avatarImageUrl}
-        alt={restaurant.name}
-        width={82}
-        height={82}
-      />
-      <h2 className="font-semibold">{restaurant.name}</h2>
+  return (
+    <div className="flex h-screen flex-col items-center justify-center px-6 pt-24">
+      {/* LOGO E TITULO */}
+      <div className="flex flex-col items-center gap-2">
+        <Image
+          src={restaurant.avatarImageUrl}
+          alt={restaurant.name}
+          width={82}
+          height={82}
+        />
+        <h2 className="font-semibold">{restaurant.name}</h2>
+      </div>
     </div>
-  </div>;
+  );
 };
 
 export default RestaurantPage;
