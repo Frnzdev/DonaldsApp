@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/prisma";
 
+import ProductHeader from "./components/product-header";
+
 interface ProductPageProps {
  params: Promise<{ slug: string; productid: string }>;
 }
@@ -16,35 +18,12 @@ const ProductPage = async({params}: ProductPageProps) => {
         return notFound();
     }
     return <>
-    <div className="relative w-full h-[300px]">
-    <Button
-        variant="secondary"
-        size="icon"
-        className="absolute left-4 top-4 z-50 rounded-full"
-      >
-        <ChevronLeft />
-      </Button>
-
-      
-        <Image
-        src={prodcut.imageUrl}
-        alt={prodcut.name}
-        fill
-        className="object-contain"
-        />
-
-<Button
-        variant="secondary"
-        size="icon"
-        className="absolute right-4 top-4 z-50 rounded-full"
-      >
-        <ScrollTextIcon />
-      </Button>
-    </div>
+   <ProductHeader  prodcut={prodcut}/>
     <h1>Product Page</h1>
     {slug}
     {productid}   
     </>;
 }
  
+
 export default ProductPage;
