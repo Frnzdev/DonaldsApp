@@ -8,7 +8,7 @@ interface ProductsProps {
 
 
 const Products = ({products}: ProductsProps) => {
-    return  <div className="space-y-3 px-1.5 py-3">
+    return  <div className="space-y-3 px-1.5 ">
         {products.map((product) => (
             <Link key={product.id} href="/" className="flex items-center justify-between gap-10 py-3 border-b py-3">
                 {/*esquerda*/}
