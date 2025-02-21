@@ -1,19 +1,33 @@
 "use client";
 
-import { MenuCategory, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { ClockIcon } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+
+import Products from "./products";
 
 interface RestaurantCategoriesProps {
   restaurant: Prisma.RestaurantGetPayload<{
     include: { menuCategories: { include: { products: true } } };
   }>;
 }
+
+type MenuCategoryWithProducts = Prisma.MenuCategoryGetPayload<{
+    include: { products: true };
+}>
+
 const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
-    const [selectedCategory, setSelectedCategory] = useState<MenuCategory>(restaurant.menuCategories[0]);
+    const [selectedCategory, setSelectedCategory] = useState<MenuCategoryWithProducts>(restaurant.menuCategories[0]);
+    const handleCategoryclick = (category: MenuCategoryWithProducts) => {
+        setSelectedCategory(category);
+    }
+    const getCategoryButtonVariant = (category: MenuCategoryWithProducts) => {
+        return selectedCategory.id === category.id ? "default" : "secondary"   
+    }
   return (
     <div className="relative z-50 mt-[-1.5rem] rounded-t-3xl border bg-white">
       <div className="p-5">
@@ -39,13 +53,18 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
       <ScrollArea className="w-full p-3">
         <div className="flex w-max space-x-4 px-4 pt-0">
             {restaurant.menuCategories.map(category =>(
-                <Button className="rounded-full" key={category.id} variant="secondary" size="sm">
+                <Button onClick={() => handleCategoryclick(category)} className="rounded-full" key={category.id} variant={
+                   getCategoryButtonVariant(category)
+                 } size="sm">
                     {category.name}
                 </Button>
             ))}
         </div>
         <ScrollBar orientation="horizontal"></ScrollBar>
       </ScrollArea>
+
+            <Products products={selectedCategory.products} />
+      
     </div>
   );
 };
