@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { db } from "@/lib/prisma";
+
+import ConsumptionMethodOption from "./components/consumption-method-option";
 
 interface RestaurantPageProps {
   params: Promise<{ slug: string }>;
@@ -35,21 +35,20 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
         </p>
       </div>
       <div className="grid grid-cols-2 gap-4 pt-14">
-        <Card>
-          <CardContent className="py-08 flex flex-col items-center gap-8">
-            <div className="relative h-[80px] w-[80px]">
-              <Image
-                src="/Take_away.png"
-                fill
-                alt="Para levar"
-                className="object-contain"
-              ></Image>
-            </div>
-            <Button variant="secondary" className="rounded-full">
-              Para comer aqui
-            </Button>
-          </CardContent>
-        </Card>
+        <ConsumptionMethodOption
+          option="DINE_IN"
+          slug={slug}
+          buttonText="Para comer aqui"
+          imageAlt="Para comer aqui"
+          imageUrl="/Dine_in.png"
+        />
+        <ConsumptionMethodOption
+          option="TAKEAWAY"
+          slug={slug}
+          buttonText="Para levar"
+          imageAlt="Para levar"
+          imageUrl="/Take_away.png"
+        />
       </div>
     </div>
   );
