@@ -33,7 +33,7 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
     }
 
     
-    return ( <div className="relative z-50 rounded-t-3xl py-5 mt-[-1.5rem]  px-5 flex-auto flex-col">
+    return ( <div className="relative z-50 rounded-t-3xl py-5 mt-[-1.5rem]  px-5 flex-auto flex-col overflow-hidden">
         <div>
         <div className="flex-auto">
             {/*RESTAURAT */}
